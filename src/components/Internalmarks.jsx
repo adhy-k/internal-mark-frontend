@@ -1,12 +1,15 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import Navbar from './Navbar'
 
 const Internalmarks = () => {
 
+    const [view, changeView] = useState(false)
+
     const [output, changeOutput] = useState({
-        name:"",
-        admno:"",
-        batch:"",
+        name: "",
+        admno: "",
+        batch: "",
         internalMark: "",
         attandance: "",
         Exam: "",
@@ -32,6 +35,7 @@ const Internalmarks = () => {
     )
 
 
+
     const inputHandler = (event) => {
         changeInput({ ...input, [event.target.name]: event.target.value })
     }
@@ -44,11 +48,13 @@ const Internalmarks = () => {
                 changeOutput(response.data)
             }
         ).catch()
+        changeView(true)
     }
 
 
     return (
         <div>
+            <Navbar />
             <div className="container">
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
@@ -100,19 +106,22 @@ const Internalmarks = () => {
                             <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <button className="btn btn-primary" onClick={readInput}>Calculate</button>
                             </div>
-                            <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                                <div class="card" >
-                                    <div class="card-body">
-                                        <h3 class="card-title">Name: {output.name} </h3>
-                                        <h4 class="card-title">Admission Number: {output.admno} </h4>
-                                        <h4 class="card-title">Batch: {output.batch} </h4>
-                                        <h4 class="text-danger">Internal Mark: {output.internalMark} </h4>
-                                        <h5 class="card-title">Attandance Mark: {output.attandance} </h5>
-                                        <h5 class="card-title">Assignment Mark: {output.assignment} </h5>
-                                        <h5 class="card-title">Exam Mark: {output.Exam} </h5>
+                            {
+                                view &&
+                                <div className="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
+                                    <div class="card" >
+                                        <div class="card-body">
+                                            <h3 class="card-title">Name: {output.name} </h3>
+                                            <h4 class="card-title">Admission Number: {output.admno} </h4>
+                                            <h4 class="card-title">Batch: {output.batch} </h4>
+                                            <h4 class="text-danger">Internal Mark: {output.internalMark} </h4>
+                                            <h5 class="card-title">Attandance Mark: {output.attandance} </h5>
+                                            <h5 class="card-title">Assignment Mark: {output.assignment} </h5>
+                                            <h5 class="card-title">Exam Mark: {output.Exam} </h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
 
                             {/* <h2>{output.internalMark.attandance.Exam}</h2> */}
                         </div>
